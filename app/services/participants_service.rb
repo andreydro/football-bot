@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Class with methods for participants
 class ParticipantsService
   def update_participants_list(match)
     return unless match.participants.main_cast.count < match.number_of_players

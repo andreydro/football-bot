@@ -61,4 +61,6 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.hosts.clear
+  config.i18n.available_locales = %i[be en]
+  config.i18n.default_locale = :be
 end
