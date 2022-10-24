@@ -25,7 +25,7 @@ class MatchService
       Helpers.send_message(client, message, I18n.t('chat.question_four'))
     elsif form.question_four_answered == false
       form.update(question_four_answered: true, question_four_answer: message.text)
-      Helpers.send_message(client, message, I18n.t('chat.question_five'))
+      Helpers.send_message(client, message, I18n.t('chat.queston_five'))
     elsif form.question_five_answered == false
       form.update(question_five_answered: true, question_five_answer: message.text)
       Helpers.send_message(client, message, I18n.t('chat.question_six'))
@@ -38,7 +38,7 @@ class MatchService
       form.update(match_id: match.id, finished: true)
 
       markup = Helpers.markup_object([Helpers.show_match_button(match)])
-      Helpers.send_message(client, message, I18n.t('chat.created'), markup)
+      Helpers.send_message(client, message, I18n.t('match.created'), markup)
     end
   end
 
@@ -56,7 +56,7 @@ class MatchService
     markup = Helpers.markup_object([
       Helpers.join_or_transfer_button(match, user),
       Helpers.view_all_matches_button,
-      Helpers.add_plus_one_button(mathc_id),
+      Helpers.add_plus_one_button(match_id),
       Helpers.additional_participants_buttons(match_id, user.id)
     ].flatten)
     Helpers.send_message(client, message, text, markup)
@@ -66,7 +66,7 @@ class MatchService
     match_id = message.data.match(/\d/)[0]
     user = User.find_by(telegram_id: message.from.id)
     match = Match.find_by(id: match_id)
-    participant = Helpers.sparticipant_object(user, match)
+    participant = Helpers.participant_object(user, match)
 
     if participant.save
       text = Helpers.match_info_text(match)

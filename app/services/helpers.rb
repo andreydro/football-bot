@@ -86,7 +86,7 @@ module Helpers
 
   def self.join_or_transfer_button(match, user)
     participant = match.participants.find_by(user_id: user.id, additional: false)
-    if match.participants.pluck(:id).include?(participant.id)
+    if participant && match.participants.pluck(:id).include?(participant.id)
       Helpers.cant_come_button(participant)
     else
       Helpers.join_match_button(match)
