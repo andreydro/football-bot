@@ -10,6 +10,7 @@ be:
     self: Карыстальнік
     created: створаны
     already_exists: ужо існуе
+    banned: Вы забанены і не можаце карыстацца ботам
   match:
     self: Матч
     create: Стварыць матч

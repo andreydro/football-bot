@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Main service that mannage telegram messages
 class BotService
   attr_reader :client, :message
 
@@ -9,8 +10,6 @@ class BotService
   end
 
   def run
-    puts 'BotService'
-    puts message
     case message
       # when callbackquery
     when Telegram::Bot::Types::CallbackQuery

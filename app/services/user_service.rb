@@ -14,6 +14,11 @@ class UserService
   end
 
   def self.validate_registration(client, message)
+    if User.find_by(telegram_id: message.from.id).present? && User.find_by(telegram_id: message.from.id).banned
+      Helpers.send_message(client, message, I18n.t('user.banned'))
+      return true
+    end
+
     if User.find_by(telegram_id: message.from.id).blank?
       button = Telegram::Bot::Types::InlineKeyboardButton.new(text: I18n.t('general.register'),
                                                               callback_data: 'register')
