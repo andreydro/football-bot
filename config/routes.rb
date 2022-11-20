@@ -7,4 +7,6 @@ Rails.application.routes.draw do
   defaults format: :json do
     resource :bot, only: %i[create]
   end
+
+  root to: 'admin/dashboard#index'
 end
