@@ -39,7 +39,7 @@ module Helpers
 
   def self.match_info_text(match)
     "#{match.title} #{match.start.strftime('%d')}.#{match.start.strftime('%m')} " \
-      "(#{match.start.strftime('%A')}) \n" \
+      "(#{Helpers.week_day(match.start.strftime('%A'))}) \n" \
       "#{I18n.t('match.time')} #{match.start.strftime('%H')}:#{match.start.strftime('%M')} " \
       "- #{match.finish.strftime('%H')}:#{match.finish.strftime('%M')} \n" \
       "#{I18n.t('match.be_ready')} #{(match.start - 15.minutes).strftime('%H')}:" \
@@ -104,5 +104,24 @@ module Helpers
     hour = time_digits.first
     min = time_digits.last
     Time.parse(form.question_two_answer).change(hour: hour, min: min)
+  end
+
+  def self.week_day(day)
+    case day
+    when 'Monday'
+      I18n.t('days.monday')
+    when 'Tuesday'
+      I18n.t('days.tuesday')
+    when 'Wednesday'
+      I18n.t('days.wednesday')
+    when 'Thursday'
+      I18n.t('days.thursday')
+    when 'Friday'
+      I18n.t('days.friday')
+    when 'Saturday'
+      I18n.t('days.saturday')
+    when 'Sunday'
+      I18n.t('days.sunday')
+    end
   end
 end
