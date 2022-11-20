@@ -46,8 +46,7 @@ class BotService
 
         MatchService.add_participant(client, message)
       else
-        puts message.data
-        puts message.message
+        GeneralService.general_info(client, message)
       end
 
     # when messages
@@ -59,10 +58,6 @@ class BotService
         UserService.show_info(client, message)
       when '/register'
         UserService.register_user(client, message)
-      when '/start'
-        client.api.send_message(chat_id: message.chat.id, text: "Hello, #{message.from.first_name}")
-      when '/stop'
-        client.api.send_message(chat_id: message.chat.id, text: "Bye, #{message.from.first_name}")
       when '/create'
         return if UserService.validate_registration(client, message)
 
