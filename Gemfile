@@ -35,6 +35,8 @@ gem 'draper'
 gem 'pundit'
 gem 'aasm'
 gem 'rails-i18n'
+gem 'redis'
+gem 'sidekiq'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
