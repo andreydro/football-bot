@@ -8,7 +8,9 @@ class Participant < ApplicationRecord
 
   aasm do
     state :main_cast, initial: true
-    state :replacement, before_enter: Proc.new { send_natification("Вы ці ваш +1 дададзены ў склад запасных на матч #{match.title}") }
+    state :replacement, before_enter: proc {
+      send_natification("Вы ці ваш +1 дададзены ў склад запасных на матч #{match.title}")
+    }
     state :wont_come
 
     event :go_to_replacement do
@@ -16,7 +18,9 @@ class Participant < ApplicationRecord
     end
 
     event :go_to_main_cast do
-      transitions from: :replacement, to: :main_cast, after: Proc.new { send_natification("Вы ці ваш +1 перанесены ў асноўны склад на матч #{match.title}") }
+      transitions from: :replacement, to: :main_cast, after: proc {
+        send_natification("Вы ці ваш +1 перанесены ў асноўны склад на матч #{match.title}")
+      }
     end
 
     event :go_to_wont_come do

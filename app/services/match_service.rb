@@ -31,8 +31,10 @@ class MatchService
       Helpers.send_message(client, message, I18n.t('chat.question_six'))
     elsif form.question_six_answered == false
       form.update(question_six_answered: true, question_six_answer: message.text)
-      match = Match.create(title: form.question_one_answer, day: form.question_two_answer,
-                           time: form.question_three_answer, location: form.question_four_answer,
+      match = Match.create(title: form.question_one_answer,
+                           start: Helpers.datetime_object(form),
+                           finish: Helpers.datetime_object(form) + form.question_four_answer.to_i.hours,
+                           duration: form.question_four_answer.to_i,
                            number_of_players: form.question_five_answer,
                            user_id: user.id, have_ball_and_shirtfronts: form.question_six_answer)
       form.update(match_id: match.id, finished: true)

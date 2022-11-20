@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_16_192526) do
+ActiveRecord::Schema.define(version: 2022_10_30_154909) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,14 +64,15 @@ ActiveRecord::Schema.define(version: 2022_10_16_192526) do
 
   create_table "matches", force: :cascade do |t|
     t.string "title"
-    t.string "day"
-    t.string "time"
     t.string "location"
     t.integer "number_of_players"
     t.integer "user_id", null: false
     t.string "have_ball_and_shirtfronts"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "start"
+    t.integer "duration"
+    t.datetime "finish"
   end
 
   create_table "participants", force: :cascade do |t|

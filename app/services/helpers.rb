@@ -38,7 +38,12 @@ module Helpers
   end
 
   def self.match_info_text(match)
-    "#{match.title} #{match.day} #{match.time} \n" \
+    "#{match.title} #{match.start.strftime('%d')}.#{match.start.strftime('%m')} " \
+      "(#{match.start.strftime('%A')}) \n" \
+      "#{I18n.t('match.time')} #{match.start.strftime('%H')}:#{match.start.strftime('%M')} " \
+      "- #{match.finish.strftime('%H')}:#{match.finish.strftime('%M')} \n" \
+      "#{I18n.t('match.be_ready')} #{(match.start - 15.minutes).strftime('%H')}:" \
+      "#{(match.start - 15.minutes).strftime('%M')} \n" \
       "#{I18n.t('match.number_of_participants')} #{match.number_of_players} \n" \
       "#{I18n.t('match.responsible_for_shirts')} #{match.have_ball_and_shirtfronts} \n" \
       "\n" \
@@ -71,7 +76,8 @@ module Helpers
   end
 
   def self.show_match_button(match)
-    text = "#{I18n.t('match.self')}: #{match.title} #{match.day} #{match.time}"
+    text = "#{I18n.t('match.self')}: #{match.title} #{match.start.strftime('%d')}.#{match.start.strftime('%m')}
+    #{match.start.strftime('%H')}:#{match.start.strftime('%M')}"
     Telegram::Bot::Types::InlineKeyboardButton.new(text: text, callback_data: "show_match/#{match.id}")
   end
 
@@ -91,5 +97,12 @@ module Helpers
     else
       Helpers.join_match_button(match)
     end
+  end
+
+  def self.datetime_object(form)
+    time_digits = form.question_three_answer.scan(/\d+/)
+    hour = time_digits.first
+    min = time_digits.last
+    Time.parse(form.question_two_answer).change(hour: hour, min: min)
   end
 end
