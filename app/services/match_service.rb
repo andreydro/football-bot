@@ -18,11 +18,21 @@ class MatchService
       form.update(question_one_answered: true, question_one_answer: message.text)
       Helpers.send_message(client, message, I18n.t('chat.question_two'))
     elsif form.question_two_answered == false
-      form.update(question_two_answered: true, question_two_answer: message.text)
-      Helpers.send_message(client, message, I18n.t('chat.question_three'))
+      # Date validation
+      if (message.text =~ /(\d{2}.\d{2}.\d{4})/).present?
+        form.update(question_two_answered: true, question_two_answer: message.text)
+        Helpers.send_message(client, message, I18n.t('chat.question_three'))
+      else
+        Helpers.send_message(client, message, I18n.t('chat.wrong_date_format'))
+      end
     elsif form.question_three_answered == false
-      form.update(question_three_answered: true, question_three_answer: message.text)
-      Helpers.send_message(client, message, I18n.t('chat.question_four'))
+      # Time validation
+      if (message.text =~ /(\d{2}:\d{2})/).present?
+        form.update(question_three_answered: true, question_three_answer: message.text)
+        Helpers.send_message(client, message, I18n.t('chat.question_four'))
+      else
+        Helpers.send_message(client, message, I18n.t('chat.wrong_time_format'))
+      end
     elsif form.question_four_answered == false
       form.update(question_four_answered: true, question_four_answer: message.text)
       Helpers.send_message(client, message, I18n.t('chat.queston_five'))
