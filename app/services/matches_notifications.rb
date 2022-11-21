@@ -2,7 +2,8 @@
 
 class MatchesNotifications
   def send_reminder(hours)
-    future_matches = Match.where(start: Time.zone.now..Time.zone.now + hours.hours)
+    current_time = Time.zone.now + 1.hour
+    future_matches = Match.where(start: current_time..current_time + hours.hours)
 
     future_matches.each do |match|
       match.participants.each do |participant|
