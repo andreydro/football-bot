@@ -1,24 +1,25 @@
-# README
+### Description
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This Rails application provide Telegram Bot functionality and has the following features:
 
-Things you may want to cover:
+- Register and ban users
+- Create football match
+- Join football match (personal and with friend)
+- Leave footabl match
+- Send reminders before match
 
-* Ruby version
+### Requirements
 
-* System dependencies
+To run application localy you need:
 
-* Configuration
+- Ruby 2.7.2
 
-* Database creation
+- bundler -  `gem install bundler`
 
-* Database initialization
+- Redis - For Sidekiq
 
-* How to run the test suite
+- PostgreSQL -  `brew install postgresql`
 
-* Services (job queues, cache servers, search engines, etc.)
+- Yarn -  `brew install yarn`  or  [Install Yarn](https://yarnpkg.com/en/docs/install)
 
-* Deployment instructions
-
-* ...
+- Add Telegram Token to `credentials.yml.enc`
