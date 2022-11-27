@@ -79,15 +79,15 @@ class MatchService
   end
 
   def self.join_match(client, message)
-    match_id = message.data.match(/\d/)[0]
+    match_id = message.data.match(/\d+/)[0]
     user = User.find_by(telegram_id: message.from.id)
     match = Match.find_by(id: match_id)
-    participant = Helpers.participant_object(user, match)
+    participant = Helpers.participant_object(user, match, false)
 
     if participant.save
       text = Helpers.match_info_text(match)
       markup = Helpers.markup_object([Helpers.view_all_matches_button,
-                                      Helpers.add_plus_one_button(match.id),
+                                      Helpers.add_plus_one_button(match_id),
                                       Helpers.cant_come_button(participant)])
 
       Helpers.send_message(client, message, text, markup)
