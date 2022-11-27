@@ -46,6 +46,7 @@ module Helpers
       "#{(match.start - 15.minutes).strftime('%M')} \n" \
       "#{I18n.t('match.number_of_participants')} #{match.number_of_players} \n" \
       "#{I18n.t('match.responsible_for_shirts')} #{match.have_ball_and_shirtfronts} \n" \
+      "#{I18n.t('match.location')} #{match.location} \n" \
       "\n" \
       "#{I18n.t('match.participants')} \n" \
       "#{participants(match.participants.main_cast)}" \

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_20_224122) do
+ActiveRecord::Schema.define(version: 2022_11_27_125014) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,17 +48,19 @@ ActiveRecord::Schema.define(version: 2022_11_20_224122) do
     t.boolean "question_four_answered", default: false
     t.boolean "question_five_answered", default: false
     t.boolean "question_six_answered", default: false
-    t.string "question_one_answer", default: "f"
-    t.string "question_two_answer", default: "f"
-    t.string "question_three_answer", default: "f"
-    t.string "question_four_answer", default: "f"
-    t.string "question_five_answer", default: "f"
-    t.string "question_six_answer", default: "f"
+    t.string "question_one_answer"
+    t.string "question_two_answer"
+    t.string "question_three_answer"
+    t.string "question_four_answer"
+    t.string "question_five_answer"
+    t.string "question_six_answer"
     t.boolean "finished", default: false
     t.integer "match_id"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "question_seven_answered", default: false
+    t.string "question_seven_answer"
     t.index ["user_id"], name: "index_match_forms_on_user_id"
   end
 

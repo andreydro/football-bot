@@ -41,13 +41,16 @@ class MatchService
       Helpers.send_message(client, message, I18n.t('chat.question_six'))
     elsif form.question_six_answered == false
       form.update(question_six_answered: true, question_six_answer: message.text)
+      Helpers.send_message(client, message, I18n.t('chat.question_seven'))
+    elsif form.question_seven_answered == false
+      form.update(question_seven_answered: true, question_seven_answer: message.text)
       match = Match.create(title: form.question_one_answer,
                            start: Helpers.datetime_object(form),
                            finish: Helpers.datetime_object(form) + form.question_four_answer.to_i.hours,
                            duration: form.question_four_answer.to_i,
                            number_of_players: form.question_five_answer,
                            user_id: user.id, have_ball_and_shirtfronts: form.question_six_answer,
-                           aasm_state: 'active')
+                           location: form.question_seven_answer, aasm_state: 'active')
       form.update(match_id: match.id, finished: true)
 
       markup = Helpers.markup_object([Helpers.show_match_button(match)])
@@ -84,6 +87,7 @@ class MatchService
     if participant.save
       text = Helpers.match_info_text(match)
       markup = Helpers.markup_object([Helpers.view_all_matches_button,
+                                      Helpers.add_plus_one_button(match.id),
                                       Helpers.cant_come_button(participant)])
 
       Helpers.send_message(client, message, text, markup)
