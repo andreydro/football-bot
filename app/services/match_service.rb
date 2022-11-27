@@ -100,17 +100,32 @@ class MatchService
     participant_id = message.data.match(/\d+/)[0]
     participant = Participant.find_by(id: participant_id)
 
-    if participant.come_back_to_main_cast!
-      match = participant.match
-      user = User.find_by(telegram_id: message.from.id)
-      text = Helpers.match_info_text(match)
-      markup = Helpers.markup_object([Helpers.join_or_transfer_button(match, user),
-                                      Helpers.view_all_matches_button,
-                                      Helpers.add_plus_one_button(match_id),
-                                      Helpers.additional_participants_buttons(match_id, user.id)])
-      Helpers.send_message(client, message, text, markup)
+    if match.participants.main_cast.count >= match.number_of_players
+      if participant.update(aasm_state: 'replacement')
+        match = participant.match
+        user = User.find_by(telegram_id: message.from.id)
+        text = Helpers.match_info_text(match)
+        markup = Helpers.markup_object([Helpers.join_or_transfer_button(match, user),
+                                        Helpers.view_all_matches_button,
+                                        Helpers.add_plus_one_button(match_id),
+                                        Helpers.additional_participants_buttons(match_id, user.id)])
+        Helpers.send_message(client, message, text, markup)
+      else
+        Helpers.send_message(client, message, I18n.t('match.error_changing_status'))
+      end
     else
-      Helpers.send_message(client, message, I18n.t('match.error_changing_status'))
+      if participant.update(aasm_state: 'main_cast')
+        match = participant.match
+        user = User.find_by(telegram_id: message.from.id)
+        text = Helpers.match_info_text(match)
+        markup = Helpers.markup_object([Helpers.join_or_transfer_button(match, user),
+                                        Helpers.view_all_matches_button,
+                                        Helpers.add_plus_one_button(match_id),
+                                        Helpers.additional_participants_buttons(match_id, user.id)])
+        Helpers.send_message(client, message, text, markup)
+      else
+        Helpers.send_message(client, message, I18n.t('match.error_changing_status'))
+      end
     end
   end
 

@@ -93,7 +93,7 @@ module Helpers
 
   def self.change_status_to_main_cast(participant)
     Telegram::Bot::Types::InlineKeyboardButton.new(
-      text: I18n.t('match.join'),
+      text: I18n.t('match.join_again'),
       callback_data: "join_match_again/#{participant.id}"
     )
   end
