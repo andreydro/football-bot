@@ -1,5 +1,6 @@
 ActiveAdmin.register Match do
-
+  permit_params :title, :location, :number_of_players, :have_ball_and_shirtfronts, :start, :duration,
+                :finish, :aasm_state
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
@@ -14,5 +15,4 @@ ActiveAdmin.register Match do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
-  
 end
