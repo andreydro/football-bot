@@ -91,10 +91,21 @@ module Helpers
     Telegram::Bot::Types::InlineKeyboardButton.new(text: I18n.t('match.join'), callback_data: "join_match/#{match.id}")
   end
 
+  def self.change_status_to_main_cast(participant)
+    Telegram::Bot::Types::InlineKeyboardButton.new(
+      text: I18n.t('match.join'),
+      callback_data: "join_match_again/#{participant.id}"
+    )
+  end
+
   def self.join_or_transfer_button(match, user)
     participant = match.participants.find_by(user_id: user.id, additional: false)
     if participant && match.participants.pluck(:id).include?(participant.id)
-      Helpers.cant_come_button(participant)
+      if participant.wont_come?
+        Helpers.change_status_to_main_cast(participant)
+      else
+        Helpers.cant_come_button(participant)
+      end
     else
       Helpers.join_match_button(match)
     end

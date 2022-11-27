@@ -46,6 +46,10 @@ class BotService
           return if UserService.validate_registration(client, message)
 
           MatchService.add_participant(client, message)
+        when %r{join_match_again/\d+}
+          return if UserService.validate_registration(client, message)
+
+          MatchService.join_again(client, message)
         else
           GeneralService.general_info(client, message)
         end

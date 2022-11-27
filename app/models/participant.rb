@@ -26,6 +26,12 @@ class Participant < ApplicationRecord
     event :go_to_wont_come do
       transitions from: %i[main_cast replacement], to: :wont_come
     end
+
+    event :come_back_to_main_cast do
+      transitions from: :wont_come, to: :main_cast, after: proc {
+        send_natification("Вы вярнуліся ў асноўны склад гульцоў на матч #{match.title}")
+      }
+    end
   end
 
   def send_natification(text)
