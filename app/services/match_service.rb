@@ -99,10 +99,10 @@ class MatchService
   def self.join_match_again(client, message)
     participant_id = message.data.match(/\d+/)[0]
     participant = Participant.find_by(id: participant_id)
+    match = participant.match
 
     if match.participants.main_cast.count >= match.number_of_players
       if participant.update(aasm_state: 'replacement')
-        match = participant.match
         user = User.find_by(telegram_id: message.from.id)
         text = Helpers.match_info_text(match)
         markup = Helpers.markup_object([Helpers.join_or_transfer_button(match, user),
@@ -115,7 +115,6 @@ class MatchService
       end
     else
       if participant.update(aasm_state: 'main_cast')
-        match = participant.match
         user = User.find_by(telegram_id: message.from.id)
         text = Helpers.match_info_text(match)
         markup = Helpers.markup_object([Helpers.join_or_transfer_button(match, user),
