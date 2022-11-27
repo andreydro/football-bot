@@ -107,8 +107,8 @@ class MatchService
         text = Helpers.match_info_text(match)
         markup = Helpers.markup_object([Helpers.join_or_transfer_button(match, user),
                                         Helpers.view_all_matches_button,
-                                        Helpers.add_plus_one_button(match_id),
-                                        Helpers.additional_participants_buttons(match_id, user.id)])
+                                        Helpers.add_plus_one_button(match.id),
+                                        Helpers.additional_participants_buttons(match.id, user.id)])
         Helpers.send_message(client, message, text, markup)
       else
         Helpers.send_message(client, message, I18n.t('match.error_changing_status'))
@@ -119,8 +119,8 @@ class MatchService
         text = Helpers.match_info_text(match)
         markup = Helpers.markup_object([Helpers.join_or_transfer_button(match, user),
                                         Helpers.view_all_matches_button,
-                                        Helpers.add_plus_one_button(match_id),
-                                        Helpers.additional_participants_buttons(match_id, user.id)])
+                                        Helpers.add_plus_one_button(match.id),
+                                        Helpers.additional_participants_buttons(match.id, user.id)])
         Helpers.send_message(client, message, text, markup)
       else
         Helpers.send_message(client, message, I18n.t('match.error_changing_status'))
