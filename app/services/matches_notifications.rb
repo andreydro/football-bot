@@ -12,7 +12,7 @@ class MatchesNotifications
     text = I18n.t('match.begin_in_notification', hours: hours)
 
     future_matches.each do |match|
-      match.participants.each do |participant|
+      match.participants.main_cast.each do |participant|
         NotificationJob.perform_later(participant.id, text)
       end
     end
@@ -23,7 +23,7 @@ class MatchesNotifications
     text = I18n.t('match.morning_notification')
 
     future_matches.each do |match|
-      match.participants.each do |participant|
+      match.participants.main_cast.each do |participant|
         NotificationJob.perform_later(participant.id, text)
       end
     end
