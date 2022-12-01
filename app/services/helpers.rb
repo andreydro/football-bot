@@ -17,7 +17,8 @@ module Helpers
   def self.participants(participants)
     participants.ordered.map.with_index do |participant, index|
       "#{index + 1}) #{participant.additional ? I18n.t('match.one_of') : ''}" \
-      "#{participant.user&.first_name} #{participant.user&.last_name} \n"
+      "#{participant.user&.first_name} #{participant.user&.last_name} " \
+      "(#{participant.created_at.strftime('%d.%m %H:%M')}) \n"
     end.join('')
   end
 
@@ -38,12 +39,11 @@ module Helpers
   end
 
   def self.match_info_text(match)
-    "#{match.title} #{match.start.strftime('%d')}.#{match.start.strftime('%m')} " \
+    "#{match.title} #{match.start.strftime('%d.%m')} " \
       "(#{Helpers.week_day(match.start.strftime('%A'))}) \n" \
-      "#{I18n.t('match.time')} #{match.start.strftime('%H')}:#{match.start.strftime('%M')} " \
-      "- #{match.finish.strftime('%H')}:#{match.finish.strftime('%M')} \n" \
-      "#{I18n.t('match.be_ready')} #{(match.start - 15.minutes).strftime('%H')}:" \
-      "#{(match.start - 15.minutes).strftime('%M')} \n" \
+      "#{I18n.t('match.time')} #{match.start.strftime('%H:%M')} " \
+      "- #{match.finish.strftime('%H:%M')} \n" \
+      "#{I18n.t('match.be_ready')} #{(match.start - 15.minutes).strftime('%H:%M')} \n" \
       "#{I18n.t('match.number_of_participants')} #{match.number_of_players} \n" \
       "#{I18n.t('match.responsible_for_shirts')} #{match.have_ball_and_shirtfronts} \n" \
       "#{I18n.t('match.location')} #{match.location} \n" \
