@@ -31,12 +31,12 @@ class UserService
   def self.register_user(client, message)
     user = message.from
     if User.find_by(telegram_id: user.id).present?
-      text = "#{I18n.t('user.self')} #{message.from.first_name} #{message.from.last_name} " \
+      text = "#{I18n.t('user.self')} #{message.from&.first_name} #{message.from&.last_name} " \
       "#{I18n.t('user.already_exists')}"
     else
-      User.create!(telegram_id: user.id, username: user.username, first_name: user.first_name,
-                   last_name: user.last_name)
-      text = "#{I18n.t('user.self')} #{message.from.first_name} #{message.from.last_name} #{I18n.t('user.created')}"
+      User.create!(telegram_id: user.id, username: user&.username, first_name: user&.first_name,
+                   last_name: user&.last_name)
+      text = "#{I18n.t('user.self')} #{message.from&.first_name} #{message.from&.last_name} #{I18n.t('user.created')}"
     end
 
     Helpers.send_message(client, message, text)
