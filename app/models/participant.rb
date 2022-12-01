@@ -6,6 +6,8 @@ class Participant < ApplicationRecord
   belongs_to :user
   belongs_to :match
 
+  scope :sorted, -> { sort }
+
   aasm do
     state :main_cast, initial: true
     state :replacement, before_enter: proc {

@@ -15,7 +15,7 @@ module Helpers
   end
 
   def self.participants(participants)
-    participants.map.with_index do |participant, index|
+    participants.sorted.map.with_index do |participant, index|
       "#{index + 1}) #{participant.additional ? I18n.t('match.one_of') : ''}" \
       "#{participant.user&.first_name} #{participant.user&.last_name} \n"
     end.join('')
