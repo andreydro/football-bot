@@ -28,4 +28,11 @@ class MatchesNotifications
       end
     end
   end
+
+  def send_match_canceled(match)
+    text = I18n.t('match.cancel_match_notification', title: match.title)
+    match.participants.main_cast.each do |participant|
+      NotificationJob.perform_later(participant.id, text)
+    end
+  end
 end
