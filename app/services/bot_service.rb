@@ -81,7 +81,7 @@ class BotService
         end
       end
     rescue => e
-      Sentry.capture_message(e)
+      Raven.capture_exception(e)
     end
   end
 end

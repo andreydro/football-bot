@@ -262,11 +262,8 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    sentry-rails (5.6.0)
-      railties (>= 5.0)
-      sentry-ruby (~> 5.6.0)
-    sentry-ruby (5.6.0)
-      concurrent-ruby (~> 1.0, >= 1.0.2)
+    sentry-raven (3.1.2)
+      faraday (>= 1.0)
     sidekiq (6.2.0)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
@@ -346,8 +343,7 @@ DEPENDENCIES
   redis
   sass-rails (>= 6)
   selenium-webdriver
-  sentry-rails
-  sentry-ruby
+  sentry-raven
   sidekiq
   spring
   spring-watcher-listen (~> 2.0.0)

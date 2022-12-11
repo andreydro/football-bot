@@ -12,7 +12,7 @@ class BotsController < ApplicationController
       BotService.new(client, message || callback_query).run if message.present? || callback_query.present?
     rescue => e
       puts e
-      Sentry.capture_message(e)
+      Raven.capture_exception(e)
       head :ok
     end
   end
