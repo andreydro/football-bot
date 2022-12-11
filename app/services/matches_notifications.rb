@@ -7,8 +7,11 @@ class MatchesNotifications
     @current_time = Time.zone.now + 1.hour
   end
 
-  def send_reminder(hours)
-    future_matches = Match.active.where(start: current_time..current_time + hours.hours)
+  def send_reminder
+    hours = 2
+    future_matches = Match.active
+                          .where(start: current_time..current_time + hours.hours)
+                          .where.not(start: current_time..current_time + (hours - 1).hours)
     text = I18n.t('match.begin_in_notification', hours: hours)
 
     future_matches.each do |match|

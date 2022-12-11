@@ -8,5 +8,7 @@ Rails.application.routes.draw do
     resource :bot, only: %i[create]
   end
 
+  resource :cancel_matches, only: :show
+
   root to: 'admin/dashboard#index'
 end
