@@ -3,23 +3,24 @@
 class Participant < ApplicationRecord
   include AASM
 
+  after_create :creation_log
+
   belongs_to :user
   belongs_to :match
 
   scope :ordered, -> { order(:id) }
 
   aasm do
-    state :main_cast, initial: true, before_enter: proc {
-      MatchLog.new.create_log("Participant #{self.id} joined the match", match.id)
-    }
+    state :main_cast, initial: true
     state :replacement, before_enter: proc {
       send_natification("Вы ці ваш +1 дададзены ў склад запасных на матч #{match.title}")
-      MatchLog.new.create_log("Participant #{self.id} went to replacement", match.id)
     }
     state :wont_come
 
     event :go_to_replacement do
-      transitions from: :main_cast, to: :replacement
+      transitions from: :main_cast, to: :replacement, after: proc {
+        MatchLog.new.create_log("Participant #{self.id} went to replacement", match.id)
+      }
     end
 
     event :go_to_main_cast do
@@ -50,5 +51,9 @@ class Participant < ApplicationRecord
   def client
     token = Rails.application.credentials.telegram[:token]
     Telegram::Bot::Client.new(token)
+  end
+
+  def creation_log
+    MatchLog.new.create_log("Participant #{self.id} joined the match", match.id)
   end
 end

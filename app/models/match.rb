@@ -3,26 +3,37 @@
 class Match < ApplicationRecord
   include AASM
 
+  after_create :creation_log
+
   has_many :participants
   has_many :match_logs
 
   aasm do
-    state :active, initial: true, before_enter: proc { MatchLog.new.create_log("Match #{id} created", id) }
-    state :finished, before_enter: proc { MatchLog.new.create_log("Match #{id} finished", id) }
-    state :canceled, before_enter: proc { MatchLog.new.create_log("Match #{id} canceled", id) }
+    state :active, initial: true
+    state :finished
+    state :canceled
 
     event :finalize do
-      transitions from: :active, to: :finished
+      transitions from: :active, to: :finished, after: proc {
+        MatchLog.new.create_log("Match #{self.id} finished", id)
+      }
     end
 
     event :activate do
-      transitions from: :finished, to: :active
+      transitions from: :finished, to: :active, after: proc {
+        MatchLog.new.create_log("Match #{self.id} was activated", id)
+      }
     end
 
     event :cancel do
       transitions from: %i[finished active], to: :canceled, after: proc {
         MatchesNotifications.new.send_match_canceled(self)
+        MatchLog.new.create_log("Match #{id} canceled", id)
       }
     end
+  end
+
+  def creation_log
+    MatchLog.new.create_log("Match #{self.id} created", id)
   end
 end
