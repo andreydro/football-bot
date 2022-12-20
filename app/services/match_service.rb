@@ -66,8 +66,8 @@ class MatchService
 
   def self.show_match(client, message)
     match_id = message.data.match(/\d+/)[0]
-    match = Match.find_by(id: match_id)
-    text = Helpers.match_info_text(match)
+    match ||= Match.find_by(id: match_id)
+    text = Helpers.match_info_text(match.includes(participants: :user))
     user = User.find_by(telegram_id: message.from.id)
     markup = Helpers.markup_object([
       Helpers.join_or_transfer_button(match, user),
@@ -81,11 +81,11 @@ class MatchService
   def self.join_match(client, message)
     match_id = message.data.match(/\d+/)[0]
     user = User.find_by(telegram_id: message.from.id)
-    match = Match.find_by(id: match_id)
+    match ||= Match.find_by(id: match_id)
     participant = Helpers.participant_object(user, match, false)
 
     if participant.save
-      text = Helpers.match_info_text(match)
+      text = Helpers.match_info_text(match.includes(participants: :user))
       markup = Helpers.markup_object([Helpers.view_all_matches_button,
                                       Helpers.add_plus_one_button(match_id),
                                       Helpers.cant_come_button(participant)])
@@ -99,12 +99,12 @@ class MatchService
   def self.join_match_again(client, message)
     participant_id = message.data.match(/\d+/)[0]
     participant = Participant.find_by(id: participant_id)
-    match = participant.match
+    match ||= participant.match
 
     if match.participants.main_cast.count >= match.number_of_players
       if participant.update(aasm_state: 'replacement')
-        user = User.find_by(telegram_id: message.from.id)
-        text = Helpers.match_info_text(match)
+        user ||= User.find_by(telegram_id: message.from.id)
+        text = Helpers.match_info_text(match.includes(participants: :user))
         markup = Helpers.markup_object([Helpers.join_or_transfer_button(match, user),
                                         Helpers.view_all_matches_button,
                                         Helpers.add_plus_one_button(match.id),
@@ -116,7 +116,7 @@ class MatchService
     else
       if participant.update(aasm_state: 'main_cast')
         user = User.find_by(telegram_id: message.from.id)
-        text = Helpers.match_info_text(match)
+        text = Helpers.match_info_text(match.includes(participants: :user))
         markup = Helpers.markup_object([Helpers.join_or_transfer_button(match, user),
                                         Helpers.view_all_matches_button,
                                         Helpers.add_plus_one_button(match.id),
@@ -130,12 +130,12 @@ class MatchService
 
   def self.add_participant(client, message)
     match_id = message.data.match(/\d+/)[0]
-    match = Match.find_by(id: match_id)
-    user = User.find_by(telegram_id: message.from.id)
+    match ||= Match.find_by(id: match_id)
+    user ||= User.find_by(telegram_id: message.from.id)
 
     participant = Helpers.participant_object(user, match, true)
     if participant.save
-      text = Helpers.match_info_text(match)
+      text = Helpers.match_info_text(match.includes(participants: :user))
       markup = Helpers.markup_object([Helpers.join_or_transfer_button(match, user),
                                       Helpers.view_all_matches_button,
                                       Helpers.add_plus_one_button(match_id),
@@ -152,7 +152,7 @@ class MatchService
     participant = Participant.find_by(id: participant_id)
 
     if participant.go_to_wont_come!
-      match = participant.match
+      match ||= participant.match
       ParticipantsService.new.update_participants_list(match)
       markup = Helpers.markup_object([Helpers.show_match_button(match),
                                       Helpers.view_all_matches_button])

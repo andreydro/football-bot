@@ -41,4 +41,8 @@ class UserService
 
     Helpers.send_message(client, message, text)
   end
+
+  def self.user_name(user)
+    user&.username ? "@#{user&.username}" : ''
+  end
 end
