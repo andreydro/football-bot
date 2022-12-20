@@ -102,7 +102,7 @@ class MatchService
     match ||= participant.match
 
     if match.participants.main_cast.count >= match.number_of_players
-      if participant.update(aasm_state: 'replacement')
+      if participant.go_to_replacement!
         user ||= User.find_by(telegram_id: message.from.id)
         text = Helpers.match_info_text(match)
         markup = Helpers.markup_object([Helpers.join_or_transfer_button(match, user),
@@ -114,7 +114,7 @@ class MatchService
         Helpers.send_message(client, message, I18n.t('match.error_changing_status'))
       end
     else
-      if participant.update(aasm_state: 'main_cast')
+      if participant.go_to_main_cast!
         user = User.find_by(telegram_id: message.from.id)
         text = Helpers.match_info_text(match)
         markup = Helpers.markup_object([Helpers.join_or_transfer_button(match, user),
