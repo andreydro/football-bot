@@ -102,7 +102,8 @@ class MatchService
     match ||= participant.match
 
     if match.participants.main_cast.count >= match.number_of_players
-      if participant.go_to_replacement!
+      if participant.update(aasm_state: 'replacement')
+        MatchLog.new.create_log("Participant #{participant.id} came back from wont_come to replacement", match.id)
         user ||= User.find_by(telegram_id: message.from.id)
         text = Helpers.match_info_text(match)
         markup = Helpers.markup_object([Helpers.join_or_transfer_button(match, user),
@@ -114,7 +115,8 @@ class MatchService
         Helpers.send_message(client, message, I18n.t('match.error_changing_status'))
       end
     else
-      if participant.go_to_main_cast!
+      if participant.update(aasm_state: 'main_cast')
+        MatchLog.new.create_log("Participant #{participant.id} came back from wont_come to main_cast", match.id)
         user = User.find_by(telegram_id: message.from.id)
         text = Helpers.match_info_text(match)
         markup = Helpers.markup_object([Helpers.join_or_transfer_button(match, user),
