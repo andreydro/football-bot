@@ -4,11 +4,12 @@ class Match < ApplicationRecord
   include AASM
 
   has_many :participants
+  has_many :match_logs
 
   aasm do
-    state :active, initial: true
-    state :finished
-    state :canceled
+    state :active, initial: true, before_enter: proc { MatchLog.new.create_log("Match #{id} created", id) }
+    state :finished, before_enter: proc { MatchLog.new.create_log("Match #{id} finished", id) }
+    state :canceled, before_enter: proc { MatchLog.new.create_log("Match #{id} canceled", id) }
 
     event :finalize do
       transitions from: :active, to: :finished

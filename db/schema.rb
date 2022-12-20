@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_01_090927) do
+ActiveRecord::Schema.define(version: 2022_12_20_214656) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,14 @@ ActiveRecord::Schema.define(version: 2022_12_01_090927) do
     t.boolean "question_seven_answered", default: false
     t.string "question_seven_answer"
     t.index ["user_id"], name: "index_match_forms_on_user_id"
+  end
+
+  create_table "match_logs", force: :cascade do |t|
+    t.bigint "match_id", null: false
+    t.string "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["match_id"], name: "index_match_logs_on_match_id"
   end
 
   create_table "matches", force: :cascade do |t|
