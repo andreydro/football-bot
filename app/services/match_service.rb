@@ -159,7 +159,7 @@ class MatchService
     participant_id = message.data.match(/\d+/)[0]
     participant = Participant.find_by(id: participant_id)
     match ||= participant.match
-    leaving_times_is_over Time.current.between?(match.start - 3.hours, match.start)
+    leaving_times_is_over = Time.current.between?(match.start - 3.hours, match.start)
 
     if leaving_times_is_over
       Helpers.send_message(client, message, I18n.t('match.cant_leave_match_before_start'))
