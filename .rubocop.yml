@@ -3,3 +3,6 @@ require:
 
 Style/Documentation:
   Enabled: false
+
+Style/RedundantSelf:
+  Enabled: false

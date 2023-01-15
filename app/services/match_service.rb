@@ -165,7 +165,7 @@ class MatchService
       Helpers.send_message(client, message, I18n.t('match.cant_leave_match_before_start'))
     else
       if participant.go_to_wont_come!
-        ParticipantsService.new.update_participants_list(match)
+        ParticipantsUpdater.new.call(match)
         markup = Helpers.markup_object([Helpers.show_match_button(match),
                                         Helpers.view_all_matches_button])
         Helpers.send_message(client, message, "#{I18n.t('match.status_change_message')} #{match.title}", markup)
