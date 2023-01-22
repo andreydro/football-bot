@@ -45,6 +45,8 @@ class Participant < ApplicationRecord
   end
 
   def send_natification(text)
+    return if Rails.env.test?
+
     client.api.send_message(chat_id: user.telegram_id, text: text)
   end
 
