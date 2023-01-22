@@ -20,7 +20,11 @@ class BotsController < ApplicationController
   private
 
   def client
-    token = Rails.application.credentials.telegram[:token]
+    token = if Rails.env.production?
+              Rails.application.credentials.production[:telegram][:token]
+            else
+              Rails.application.credentials.staging[:telegram][:token]
+            end
     Telegram::Bot::Client.new(token)
   end
 

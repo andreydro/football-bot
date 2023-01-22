@@ -21,7 +21,8 @@ class BotService
 
           UserService.show_info(client, message)
         when 'register'
-          UserService.register_user(client, message)
+          # UserService.register_user(client, message)
+          Users::Register.new(client, message).call
         when 'create'
           return if UserService.validate_registration(client, message)
 
@@ -62,7 +63,8 @@ class BotService
 
           UserService.show_info(client, message)
         when '/register'
-          UserService.register_user(client, message)
+          # UserService.register_user(client, message)
+          Users::Register.new(client, message).call
         when '/create'
           return if UserService.validate_registration(client, message)
 

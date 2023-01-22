@@ -26,6 +26,8 @@ RSpec.describe ParticipantsUpdater do
 
     it 'update_participants_list' do
       expect(subject.call(match).length).to eq 2
+      expect(Participant.pluck(:aasm_state).include?('main_cast')).to be true
+      expect(Participant.pluck(:aasm_state).exclude?('replacement')).to be true
     end
   end
 end

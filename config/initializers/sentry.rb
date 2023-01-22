@@ -15,6 +15,10 @@
 # end
 
 Raven.configure do |config|
-  config.dsn = Rails.application.credentials.sentry_dsn
+  config.dsn = if Rails.env.production?
+                 Rails.application.credentials.production[:sentry_dsn]
+               else
+                 Rails.application.credentials.staging[:sentry_dsn]
+               end
   config.current_environment = 'production'
 end
