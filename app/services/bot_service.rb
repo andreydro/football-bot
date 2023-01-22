@@ -25,15 +25,15 @@ class BotService
         when 'create'
           return if Users::Authenticator.new(client, message).call
 
-          MatchService.create_match_form(client, message)
+          Matches::FormCreator.new(client, message).call
         when %r{show_match/\d+}
           return if Users::Authenticator.new(client, message).call
 
-          MatchService.show_match(client, message)
+          Matches::Show.new(client, message).call
         when 'show_matches'
           return if Users::Authenticator.new(client, message).call
 
-          MatchService.show_matches(client, message)
+          Matches::Index.new(client, message).call
         when %r{join_match/\d+}
           return if Users::Authenticator.new(client, message).call
 
@@ -66,15 +66,15 @@ class BotService
         when '/create'
           return if Users::Authenticator.new(client, message).call
 
-          MatchService.create_match_form(client, message)
+          Matches::FormCreator.new(client, message).call
         when '/show_matches'
           return if Users::Authenticator.new(client, message).call
 
-          MatchService.show_matches(client, message)
+          Matches::Index.new(client, message).call
         else
           user = User.find_by(telegram_id: message.from.id)
           if user && user.match_forms.pluck(:finished).include?(false)
-            MatchService.answer_form_question(client, message)
+            Matches::FormProcessor.new(client, message).call
           else
             General::Info.new(client, message).call
           end
