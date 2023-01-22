@@ -17,38 +17,37 @@ class BotService
 
         case message.data
         when 'info'
-          return if UserService.validate_registration(client, message)
+          return if Users::Authenticator.new(client, message).call
 
           UserService.show_info(client, message)
         when 'register'
-          # UserService.register_user(client, message)
           Users::Register.new(client, message).call
         when 'create'
-          return if UserService.validate_registration(client, message)
+          return if Users::Authenticator.new(client, message).call
 
           MatchService.create_match_form(client, message)
         when %r{show_match/\d+}
-          return if UserService.validate_registration(client, message)
+          return if Users::Authenticator.new(client, message).call
 
           MatchService.show_match(client, message)
         when 'show_matches'
-          return if UserService.validate_registration(client, message)
+          return if Users::Authenticator.new(client, message).call
 
           MatchService.show_matches(client, message)
         when %r{join_match/\d+}
-          return if UserService.validate_registration(client, message)
+          return if Users::Authenticator.new(client, message).call
 
           MatchService.join_match(client, message)
         when %r{cant_come/\d+}
-          return if UserService.validate_registration(client, message)
+          return if Users::Authenticator.new(client, message).call
 
           MatchService.cant_come(client, message)
         when %r{add_participant/\d+}
-          return if UserService.validate_registration(client, message)
+          return if Users::Authenticator.new(client, message).call
 
           MatchService.add_participant(client, message)
         when %r{join_match_again/\d+}
-          return if UserService.validate_registration(client, message)
+          return if Users::Authenticator.new(client, message).call
 
           MatchService.join_match_again(client, message)
         else
@@ -59,18 +58,17 @@ class BotService
       when Telegram::Bot::Types::Message
         case message.text
         when '/info'
-          return if UserService.validate_registration(client, message)
+          return if Users::Authenticator.new(client, message).call
 
           UserService.show_info(client, message)
         when '/register'
-          # UserService.register_user(client, message)
           Users::Register.new(client, message).call
         when '/create'
-          return if UserService.validate_registration(client, message)
+          return if Users::Authenticator.new(client, message).call
 
           MatchService.create_match_form(client, message)
         when '/show_matches'
-          return if UserService.validate_registration(client, message)
+          return if Users::Authenticator.new(client, message).call
 
           MatchService.show_matches(client, message)
         else
