@@ -19,7 +19,8 @@ class BotService
         when 'info'
           return if Users::Authenticator.new(client, message).call
 
-          UserService.show_info(client, message)
+          # UserService.show_info(client, message)
+          Users::ShowInfo.new(client, message).call
         when 'register'
           Users::Register.new(client, message).call
         when 'create'
@@ -60,7 +61,8 @@ class BotService
         when '/info'
           return if Users::Authenticator.new(client, message).call
 
-          UserService.show_info(client, message)
+          # UserService.show_info(client, message)
+          Users::ShowInfo.new(client, message).call
         when '/register'
           Users::Register.new(client, message).call
         when '/create'

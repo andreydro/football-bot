@@ -19,7 +19,7 @@ module Helpers
       "#{index + 1}) #{participant.additional ? I18n.t('match.one_of') : ''}" \
       "#{participant.user&.first_name} #{participant.user&.last_name} " \
       "(#{participant.created_at.strftime('%d.%m %H:%M')}) " \
-      "#{UserService.user_name(participant.user)} \n"
+      "#{Helpers.user_name(participant.user)} \n"
     end.join('')
   end
 
@@ -136,5 +136,9 @@ module Helpers
     when 'Sunday'
       I18n.t('days.sunday')
     end
+  end
+
+  def self.user_name(user)
+    user&.username ? "@#{user&.username}" : ''
   end
 end
