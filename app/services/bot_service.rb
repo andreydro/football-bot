@@ -19,7 +19,6 @@ class BotService
         when 'info'
           return if Users::Authenticator.new(client, message).call
 
-          # UserService.show_info(client, message)
           Users::ShowInfo.new(client, message).call
         when 'register'
           Users::Register.new(client, message).call
@@ -52,7 +51,7 @@ class BotService
 
           MatchService.join_match_again(client, message)
         else
-          GeneralService.general_info(client, message)
+          General::Info.new(client, message).call
         end
 
       # when messages
@@ -61,7 +60,6 @@ class BotService
         when '/info'
           return if Users::Authenticator.new(client, message).call
 
-          # UserService.show_info(client, message)
           Users::ShowInfo.new(client, message).call
         when '/register'
           Users::Register.new(client, message).call
@@ -78,7 +76,7 @@ class BotService
           if user && user.match_forms.pluck(:finished).include?(false)
             MatchService.answer_form_question(client, message)
           else
-            GeneralService.general_info(client, message)
+            General::Info.new(client, message).call
           end
         end
       end
