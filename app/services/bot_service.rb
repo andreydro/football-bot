@@ -41,7 +41,7 @@ class BotService
         when %r{cant_come/\d+}
           return if Users::Authenticator.new(client, message).call
 
-          MatchService.cant_come(client, message)
+          Matches::CantCome.new(client, message).call
         when %r{add_participant/\d+}
           return if Users::Authenticator.new(client, message).call
 
