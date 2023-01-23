@@ -5,8 +5,8 @@ class Match < ApplicationRecord
 
   after_create :creation_log
 
-  has_many :participants
-  has_many :match_logs
+  has_many :participants, dependent: :destroy
+  has_many :match_logs, dependent: :destroy
 
   aasm do
     state :active, initial: true

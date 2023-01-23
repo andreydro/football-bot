@@ -3,12 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe Users::Register do
-  let(:client) { nil }
   let(:message) do
     MessageHelpers::Message.new(1_111_111, 'username', 'first_name', 'last_name')
   end
 
-  subject { Users::Register.new(client, message) }
+  subject { Users::Register.new(message) }
 
   before do
     allow(Helpers).to receive(:send_message).and_return('message send')

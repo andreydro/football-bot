@@ -3,12 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe Users::Authenticator do
-  let(:client) { nil }
   let(:message) do
     MessageHelpers::Message.new(1_111_111, 'username', 'first_name', 'last_name')
   end
 
-  subject { Users::Authenticator.new(client, message) }
+  subject { Users::Authenticator.new(message) }
 
   before do
     allow(Helpers).to receive(:send_message).and_return('message send')
