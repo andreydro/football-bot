@@ -1,16 +1,7 @@
 # frozen_string_literal: true
 
 module Users
-  class Authenticator
-    include Helpers
-
-    attr_reader :message, :client
-
-    def initialize(client, message)
-      @client = client
-      @message = message
-    end
-
+  class Authenticator < Base
     def call
       return true if user_banned?
 

@@ -1,16 +1,7 @@
 # frozen_string_literal: true
 
 module Matches
-  class FormCreator
-    include Helpers
-
-    attr_reader :message, :client
-
-    def initialize(client, message)
-      @client = client
-      @message = message
-    end
-
+  class FormCreator < Base
     def call
       return if user.blank?
 

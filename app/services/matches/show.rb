@@ -1,16 +1,7 @@
 # frozen_string_literal: true
 
 module Matches
-  class Show
-    include Helpers
-
-    attr_reader :message, :client
-
-    def initialize(client, message)
-      @client = client
-      @message = message
-    end
-
+  class Show < Base
     def call
       markup = Helpers.markup_object([
         Helpers.join_or_transfer_button(match, user),

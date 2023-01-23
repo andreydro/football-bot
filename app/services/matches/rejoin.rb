@@ -1,16 +1,7 @@
 # frozen_string_literal: true
 
 module Matches
-  class Rejoin
-    include Helpers
-
-    attr_reader :message, :client
-
-    def initialize(client, message)
-      @client = client
-      @message = message
-    end
-
+  class Rejoin < Base
     def call
       if match.participants.main_cast.count >= match.number_of_players
         move_participant_to_replacement

@@ -1,16 +1,7 @@
 # frozen_string_literal: true
 
 module Matches
-  class CantCome
-    include Helpers
-
-    attr_reader :message, :client
-
-    def initialize(client, message)
-      @client = client
-      @message = message
-    end
-
+  class CantCome < Base
     def call
       if leaving_time_is_over?
         Helpers.send_message(client, message, I18n.t('match.cant_leave_match_before_start'))

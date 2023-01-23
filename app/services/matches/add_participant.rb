@@ -1,16 +1,7 @@
 # frozen_string_literal: true
 
 module Matches
-  class AddParticipant
-    include Helpers
-
-    attr_reader :message, :client
-
-    def initialize(client, message)
-      @client = client
-      @message = message
-    end
-
+  class AddParticipant < Base
     def call
       if participant.save
         Helpers.send_message(client, message, match_text, markup_with_buttons)

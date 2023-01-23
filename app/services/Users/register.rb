@@ -1,16 +1,7 @@
 # frozen_string_literal: true
 
 module Users
-  class Register
-    include Helpers
-
-    attr_reader :message, :client
-
-    def initialize(client, message)
-      @client = client
-      @message = message
-    end
-
+  class Register < Base
     def call
       if User.find_by(telegram_id: user.id).present?
         user_exist_message

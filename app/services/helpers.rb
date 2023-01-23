@@ -116,7 +116,7 @@ module Helpers
     time_digits = form.question_three_answer.scan(/\d+/)
     hour = time_digits.first
     min = time_digits.last
-    Time.parse(form.question_two_answer).change(hour: hour, min: min)
+    Time.zone.parse(form.question_two_answer).change(hour: hour, min: min)
   end
 
   def self.week_day(day)

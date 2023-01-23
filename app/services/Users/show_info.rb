@@ -1,16 +1,7 @@
 # frozen_string_literal: true
 
 module Users
-  class ShowInfo
-    include Helpers
-
-    attr_reader :message, :client
-
-    def initialize(client, message)
-      @client = client
-      @message = message
-    end
-
+  class ShowInfo < Base
     def call
       markup = Helpers.markup_object(
         [Telegram::Bot::Types::InlineKeyboardButton.new(text: I18n.t('match.create'), callback_data: 'create'),

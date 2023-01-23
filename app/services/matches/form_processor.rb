@@ -1,16 +1,7 @@
 # frozen_string_literal: true
 
 module Matches
-  class FormProcessor
-    include Helpers
-
-    attr_reader :message, :client
-
-    def initialize(client, message)
-      @client = client
-      @message = message
-    end
-
+  class FormProcessor < Base
     def call
       if form.question_one_answered == false
         process_question_one

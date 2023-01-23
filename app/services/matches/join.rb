@@ -1,16 +1,7 @@
 # frozen_string_literal: true
 
 module Matches
-  class Join
-    include Helpers
-
-    attr_reader :message, :client
-
-    def initialize(client, message)
-      @client = client
-      @message = message
-    end
-
+  class Join < Base
     def call
       if participant_already_joined?
         Helpers.send_message(client, message, I18n.t('match.already_participating_in_the_match'))
