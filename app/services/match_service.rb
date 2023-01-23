@@ -3,25 +3,6 @@
 class MatchService
   include Helpers
 
-  def self.add_participant(client, message)
-    match_id = message.data.match(/\d+/)[0]
-    match ||= Match.find_by(id: match_id)
-    user ||= User.find_by(telegram_id: message.from.id)
-
-    participant = Helpers.participant_object(user, match, true)
-    if participant.save
-      text = Helpers.match_info_text(match)
-      markup = Helpers.markup_object([Helpers.join_or_transfer_button(match, user),
-                                      Helpers.view_all_matches_button,
-                                      Helpers.add_plus_one_button(match_id),
-                                      Helpers.additional_participants_buttons(match_id, user.id)])
-
-      Helpers.send_message(client, message, text, markup)
-    else
-      Helpers.send_message(client, message, I18n.t('match.error_joining_match'))
-    end
-  end
-
   def self.cant_come(client, message)
     participant_id = message.data.match(/\d+/)[0]
     participant = Participant.find_by(id: participant_id)

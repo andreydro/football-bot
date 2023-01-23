@@ -45,7 +45,7 @@ class BotService
         when %r{add_participant/\d+}
           return if Users::Authenticator.new(client, message).call
 
-          MatchService.add_participant(client, message)
+          Matches::AddParticipant.new(client, message).call
         when %r{join_match_again/\d+}
           return if Users::Authenticator.new(client, message).call
 
