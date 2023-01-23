@@ -25,7 +25,7 @@ module Matches
     end
 
     def participant
-      @participant ||= Helpers.participant_object(user, match, false)
+      @participant ||= participant_object(false)
     end
 
     def participant_already_joined?

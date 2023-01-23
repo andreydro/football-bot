@@ -25,7 +25,7 @@ module Matches
     end
 
     def participant
-      @participant ||= Helpers.participant_object(user, match, true)
+      @participant ||= participant_object(true)
     end
 
     def match_text

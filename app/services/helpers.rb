@@ -23,22 +23,6 @@ module Helpers
     end.join('')
   end
 
-  def self.participant_object(user, match, additional = false)
-    if match.participants.main_cast.count >= match.number_of_players
-      if additional
-        Participant.new(user_id: user.id, match_id: match.id, aasm_state: :replacement, additional: true)
-      else
-        Participant.new(user_id: user.id, match_id: match.id, aasm_state: :replacement)
-      end
-    else
-      if additional
-        Participant.new(user_id: user.id, match_id: match.id, additional: true)
-      else
-        Participant.new(user_id: user.id, match_id: match.id)
-      end
-    end
-  end
-
   def self.match_info_text(match)
     "#{match.title} #{match.start.strftime('%d.%m')} " \
       "(#{Helpers.week_day(match.start.strftime('%A'))}) \n" \
