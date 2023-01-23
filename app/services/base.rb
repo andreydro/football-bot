@@ -3,10 +3,9 @@
 class Base
   include Helpers
 
-  attr_reader :message, :client
+  attr_reader :message
 
-  def initialize(client, message)
-    @client = client
+  def initialize(message)
     @message = message
   end
 end

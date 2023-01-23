@@ -12,7 +12,7 @@ module Users
 
     def user_banned?
       if User.find_by(telegram_id: message.from.id).present? && User.find_by(telegram_id: message.from.id).banned
-        Helpers.send_message(client, message, I18n.t('user.banned'))
+        Helpers.send_message(message, I18n.t('user.banned'))
         true
       else
         false
@@ -24,7 +24,7 @@ module Users
         button = Telegram::Bot::Types::InlineKeyboardButton.new(text: I18n.t('general.register'),
                                                                 callback_data: 'register')
         markup = Helpers.markup_object([button])
-        Helpers.send_message(client, message, I18n.t('general.please_register'), markup)
+        Helpers.send_message(message, I18n.t('general.please_register'), markup)
         true
       else
         false

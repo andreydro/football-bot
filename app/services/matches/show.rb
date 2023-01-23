@@ -9,7 +9,7 @@ module Matches
         Helpers.add_plus_one_button(match_id),
         Helpers.additional_participants_buttons(match_id, user.id)
       ].flatten)
-      Helpers.send_message(client, message, text, markup)
+      Helpers.send_message(message, text, markup)
     end
 
     private

@@ -47,16 +47,7 @@ class Participant < ApplicationRecord
   def send_natification(text)
     return if Rails.env.test?
 
-    client.api.send_message(chat_id: user.telegram_id, text: text)
-  end
-
-  def client
-    token = if Rails.env.production?
-              Rails.application.credentials.production[:telegram][:token]
-            else
-              Rails.application.credentials.staging[:telegram][:token]
-            end
-    Telegram::Bot::Client.new(token)
+    BotClient.instance.api.send_message(chat_id: user.telegram_id, text: text)
   end
 
   def creation_log

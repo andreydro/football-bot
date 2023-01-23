@@ -9,7 +9,7 @@ class BotsController < ApplicationController
       callback_query = update.callback_query
       # Update attributes is inside update object (inline_query, chosen_inline_result, shipping_query, etc.)
 
-      BotService.new(client, message || callback_query).run if message.present? || callback_query.present?
+      BotService.new(message || callback_query).run if message.present? || callback_query.present?
     rescue => e
       puts e
       Raven.capture_exception(e)
@@ -18,15 +18,6 @@ class BotsController < ApplicationController
   end
 
   private
-
-  def client
-    token = if Rails.env.production?
-              Rails.application.credentials.production[:telegram][:token]
-            else
-              Rails.application.credentials.staging[:telegram][:token]
-            end
-    Telegram::Bot::Client.new(token)
-  end
 
   def update
     Telegram::Bot::Types::Update.new(bot_params)

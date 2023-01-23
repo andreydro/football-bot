@@ -5,7 +5,7 @@ module Matches
     def call
       matches_kb = Match.active.map { |match| Helpers.show_match_button(match) }
       markup = Helpers.markup_object(matches_kb)
-      Helpers.send_message(client, message, I18n.t('match.list'), markup)
+      Helpers.send_message(message, I18n.t('match.list'), markup)
     end
   end
 end

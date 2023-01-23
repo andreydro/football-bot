@@ -32,16 +32,16 @@ module Matches
 
     def process_question_one
       form.update(question_one_answered: true, question_one_answer: message.text)
-      Helpers.send_message(client, message, I18n.t('chat.question_two'))
+      Helpers.send_message(message, I18n.t('chat.question_two'))
     end
 
     def process_question_two
       # Date validation
       if (message.text =~ /(\d{2}.\d{2}.\d{4})/).present?
         form.update(question_two_answered: true, question_two_answer: message.text)
-        Helpers.send_message(client, message, I18n.t('chat.question_three'))
+        Helpers.send_message(message, I18n.t('chat.question_three'))
       else
-        Helpers.send_message(client, message, I18n.t('chat.wrong_date_format'))
+        Helpers.send_message(message, I18n.t('chat.wrong_date_format'))
       end
     end
 
@@ -49,25 +49,25 @@ module Matches
       # Time validation
       if (message.text =~ /(\d{2}:\d{2})/).present?
         form.update(question_three_answered: true, question_three_answer: message.text)
-        Helpers.send_message(client, message, I18n.t('chat.question_four'))
+        Helpers.send_message(message, I18n.t('chat.question_four'))
       else
-        Helpers.send_message(client, message, I18n.t('chat.wrong_time_format'))
+        Helpers.send_message(message, I18n.t('chat.wrong_time_format'))
       end
     end
 
     def process_question_four
       form.update(question_four_answered: true, question_four_answer: message.text)
-      Helpers.send_message(client, message, I18n.t('chat.queston_five'))
+      Helpers.send_message(message, I18n.t('chat.queston_five'))
     end
 
     def process_question_five
       form.update(question_five_answered: true, question_five_answer: message.text)
-      Helpers.send_message(client, message, I18n.t('chat.question_six'))
+      Helpers.send_message(message, I18n.t('chat.question_six'))
     end
 
     def process_question_six
       form.update(question_six_answered: true, question_six_answer: message.text)
-      Helpers.send_message(client, message, I18n.t('chat.question_seven'))
+      Helpers.send_message(message, I18n.t('chat.question_seven'))
     end
 
     def process_question_seven
@@ -76,7 +76,7 @@ module Matches
       form.update(match_id: match.id, finished: true)
 
       markup = Helpers.markup_object([Helpers.show_match_button(match)])
-      Helpers.send_message(client, message, I18n.t('match.created'), markup)
+      Helpers.send_message(message, I18n.t('match.created'), markup)
     end
 
     def create_match

@@ -4,7 +4,7 @@ module Matches
   class Join < Base
     def call
       if participant_already_joined?
-        Helpers.send_message(client, message, I18n.t('match.already_participating_in_the_match'))
+        Helpers.send_message(message, I18n.t('match.already_participating_in_the_match'))
       else
         save_participant
       end
@@ -41,9 +41,9 @@ module Matches
         markup = Helpers.markup_object([Helpers.view_all_matches_button,
                                         Helpers.add_plus_one_button(match_id),
                                         Helpers.cant_come_button(participant)])
-        Helpers.send_message(client, message, match_text, markup)
+        Helpers.send_message(message, match_text, markup)
       else
-        Helpers.send_message(client, message, I18n.t('match.error_joining_match'))
+        Helpers.send_message(message, I18n.t('match.error_joining_match'))
       end
     end
   end

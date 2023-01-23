@@ -4,9 +4,9 @@ module Matches
   class AddParticipant < Base
     def call
       if participant.save
-        Helpers.send_message(client, message, match_text, markup_with_buttons)
+        Helpers.send_message(message, match_text, markup_with_buttons)
       else
-        Helpers.send_message(client, message, I18n.t('match.error_joining_match'))
+        Helpers.send_message(message, I18n.t('match.error_joining_match'))
       end
     end
 

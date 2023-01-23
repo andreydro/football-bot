@@ -8,7 +8,7 @@ module General
          Telegram::Bot::Types::InlineKeyboardButton.new(text: I18n.t('general.register'), callback_data: 'register')]
       )
 
-      Helpers.send_message(client, message, I18n.t('general.information_message'), markup)
+      Helpers.send_message(message, I18n.t('general.information_message'), markup)
     end
   end
 end

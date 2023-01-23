@@ -6,11 +6,11 @@ module Helpers
     Telegram::Bot::Types::InlineKeyboardMarkup.new(inline_keyboard: array_of_objects)
   end
 
-  def self.send_message(client, message, text, markup = nil)
+  def self.send_message(message, text, markup = nil)
     if markup.present?
-      client.api.send_message(chat_id: message.from.id, text: text, reply_markup: markup)
+      BotClient.instance.api.send_message(chat_id: message.from.id, text: text, reply_markup: markup)
     else
-      client.api.send_message(chat_id: message.from.id, text: text)
+      BotClient.instance.api.send_message(chat_id: message.from.id, text: text)
     end
   end
 

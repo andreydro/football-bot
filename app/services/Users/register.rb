@@ -15,7 +15,7 @@ module Users
     def user_exist_message
       text = "#{I18n.t('user.self')} #{message.from&.first_name} #{message.from&.last_name} " \
         "#{I18n.t('user.already_exists')}"
-      Helpers.send_message(client, message, text)
+      Helpers.send_message(message, text)
     end
 
     def user_created_message
@@ -24,7 +24,7 @@ module Users
              else
                "#{I18n.t('user.self')} #{I18n.t('user.not_created')}. #{I18n.t('general.error')}"
              end
-      Helpers.send_message(client, message, text)
+      Helpers.send_message(message, text)
     end
 
     def user

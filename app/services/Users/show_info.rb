@@ -8,7 +8,7 @@ module Users
          Telegram::Bot::Types::InlineKeyboardButton.new(text: I18n.t('match.join'), callback_data: 'show_matches')]
       )
 
-      Helpers.send_message(client, message, I18n.t('general.join_message'), markup)
+      Helpers.send_message(message, I18n.t('general.join_message'), markup)
     end
   end
 end

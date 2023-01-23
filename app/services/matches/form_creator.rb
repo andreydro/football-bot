@@ -6,7 +6,7 @@ module Matches
       return if user.blank?
 
       user.match_forms.create
-      Helpers.send_message(client, message, I18n.t('chat.start'))
+      Helpers.send_message(message, I18n.t('chat.start'))
     end
 
     private
