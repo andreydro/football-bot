@@ -49,7 +49,7 @@ class BotService
         when %r{join_match_again/\d+}
           return if Users::Authenticator.new(client, message).call
 
-          MatchService.join_match_again(client, message)
+          Matches::Rejoin.new(client, message).call
         else
           General::Info.new(client, message).call
         end
