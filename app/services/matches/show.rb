@@ -27,7 +27,7 @@ module Matches
     end
 
     def text
-      Helpers.match_info_text(match)
+      Matches::Info.new(match).call
     end
   end
 end

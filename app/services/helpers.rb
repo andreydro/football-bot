@@ -14,35 +14,6 @@ module Helpers
     end
   end
 
-  def self.participants(participants)
-    participants.ordered.map.with_index do |participant, index|
-      "#{index + 1}) #{participant.additional ? I18n.t('match.one_of') : ''}" \
-      "#{participant.user&.first_name} #{participant.user&.last_name} " \
-      "(#{participant.created_at.strftime('%d.%m %H:%M')}) " \
-      "#{Helpers.user_name(participant.user)} \n"
-    end.join('')
-  end
-
-  def self.match_info_text(match)
-    "#{match.title} #{match.start.strftime('%d.%m')} " \
-      "(#{Helpers.week_day(match.start.strftime('%A'))}) \n" \
-      "#{I18n.t('match.time')} #{match.start.strftime('%H:%M')} " \
-      "- #{match.finish.strftime('%H:%M')} \n" \
-      "#{I18n.t('match.be_ready')} #{(match.start - 15.minutes).strftime('%H:%M')} \n" \
-      "#{I18n.t('match.number_of_participants')} #{match.number_of_players} \n" \
-      "#{I18n.t('match.responsible_for_shirts')} #{match.have_ball_and_shirtfronts} \n" \
-      "#{I18n.t('match.location')} #{match.location} \n" \
-      "\n" \
-      "#{I18n.t('match.participants')} \n" \
-      "#{participants(match.participants.main_cast)}" \
-      "\n" \
-      "#{I18n.t('match.changes')} \n" \
-      "#{participants(match.participants.replacement)}" \
-      "\n" \
-      "#{I18n.t('match.participants_cant_come')} \n" \
-      "#{participants(match.participants.wont_come)}" \
-  end
-
   def self.view_all_matches_button
     Telegram::Bot::Types::InlineKeyboardButton.new(text: I18n.t('match.view_all'), callback_data: 'show_matches')
   end
@@ -94,35 +65,5 @@ module Helpers
     else
       Helpers.join_match_button(match)
     end
-  end
-
-  def self.datetime_object(form)
-    time_digits = form.question_three_answer.scan(/\d+/)
-    hour = time_digits.first
-    min = time_digits.last
-    Time.zone.parse(form.question_two_answer).change(hour: hour, min: min)
-  end
-
-  def self.week_day(day)
-    case day
-    when 'Monday'
-      I18n.t('days.monday')
-    when 'Tuesday'
-      I18n.t('days.tuesday')
-    when 'Wednesday'
-      I18n.t('days.wednesday')
-    when 'Thursday'
-      I18n.t('days.thursday')
-    when 'Friday'
-      I18n.t('days.friday')
-    when 'Saturday'
-      I18n.t('days.saturday')
-    when 'Sunday'
-      I18n.t('days.sunday')
-    end
-  end
-
-  def self.user_name(user)
-    user&.username ? "@#{user&.username}" : ''
   end
 end

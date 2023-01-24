@@ -94,11 +94,18 @@ module Matches
     end
 
     def start_time
-      Helpers.datetime_object(form)
+      datetime_object(form)
     end
 
     def finish_time
-      Helpers.datetime_object(form) + form.question_four_answer.to_i.hours
+      datetime_object(form) + form.question_four_answer.to_i.hours
+    end
+
+    def datetime_object(form)
+      time_digits = form.question_three_answer.scan(/\d+/)
+      hour = time_digits.first
+      min = time_digits.last
+      Time.zone.parse(form.question_two_answer).change(hour: hour, min: min)
     end
   end
 end

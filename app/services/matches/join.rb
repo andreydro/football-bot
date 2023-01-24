@@ -33,7 +33,7 @@ module Matches
     end
 
     def match_text
-      Helpers.match_info_text(match)
+      Matches::Info.new(match).call
     end
 
     def save_participant
