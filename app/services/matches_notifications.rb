@@ -8,13 +8,8 @@ class MatchesNotifications
   end
 
   def send_reminder
-    hours = 2
-    future_matches = Match.active
-                          .where(start: current_time..current_time + hours.hours)
-                          .where.not(start: current_time..current_time + (hours - 1).hours)
-    text = I18n.t('match.begin_in_notification', hours: hours)
-
-    future_matches.each do |match|
+    text = I18n.t('match.begin_in_notification', hours: 2)
+    two_hour_matches.each do |match|
       match.participants.main_cast.each do |participant|
         NotificationJob.perform_later(participant.id, text)
       end
@@ -37,5 +32,13 @@ class MatchesNotifications
     match.participants.main_cast.each do |participant|
       NotificationJob.perform_later(participant.id, text)
     end
+  end
+
+  private
+
+  def two_hour_matches
+    hours = 2
+    Match.active.where(start: current_time..current_time + hours.hours)
+         .where.not(start: current_time..current_time + (hours - 1).hours)
   end
 end

@@ -2,25 +2,29 @@
 
 module Matches
   class FormProcessor < Base
+    QUESTIONS = %i[question_one_answered question_two_answered question_three_answered question_four_answered
+                   question_five_answered question_six_answered question_seven_answered].freeze
+
     def call
-      if form.question_one_answered == false
+      case current_question_for_procession
+      when :question_one_answered
         process_question_one
-      elsif form.question_two_answered == false
+      when :question_two_answered
         process_question_two
-      elsif form.question_three_answered == false
+      when :question_three_answered
         process_question_three
-      elsif form.question_four_answered == false
+      when :question_four_answered
         process_question_four
-      elsif form.question_five_answered == false
+      when :question_five_answered
         process_question_five
-      elsif form.question_six_answered == false
+      when :question_six_answered
         process_question_six
-      elsif form.question_seven_answered == false
+      when :question_seven_answered
         process_question_seven
       end
     end
 
-    private
+    # private
 
     def user
       @user ||= User.find_by(telegram_id: message.from.id)
@@ -28,6 +32,10 @@ module Matches
 
     def form
       @form ||= user.match_forms.find_by(finished: false)
+    end
+
+    def current_question_for_procession
+      QUESTIONS.detect { |question| form[question] == false }
     end
 
     def process_question_one
