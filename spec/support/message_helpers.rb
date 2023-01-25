@@ -13,11 +13,14 @@ module MessageHelpers
   end
 
   class Message
-    def initialize(id, username, first_name, last_name)
+    attr_reader :data
+
+    def initialize(id, username, first_name, last_name, data = nil)
       @id = id
       @username = username
       @last_name = last_name
       @first_name = first_name
+      @data = data
     end
 
     def from
