@@ -4,6 +4,7 @@ class Match < ApplicationRecord
   include AASM
 
   after_create :creation_log
+  after_update :update_participants
 
   has_many :participants, dependent: :destroy
   has_many :match_logs, dependent: :destroy
@@ -35,5 +36,11 @@ class Match < ApplicationRecord
 
   def creation_log
     MatchLog.new.create_log("Match #{self.id} created", id)
+  end
+
+  private
+
+  def update_participants
+    ParticipantsUpdater.new.call(self)
   end
 end

@@ -11,8 +11,9 @@ RSpec.describe ParticipantsUpdater do
     let(:match) { create(:match, number_of_players: 2) }
     let!(:participant) { create_list(:participant, 3, match_id: match.id, user_id: user.id) }
 
-    it 'returns nil' do
-      expect(subject.call(match)).to eq nil
+    it 'updates status from main_cast to replacement' do
+      expect(subject.call(match).length).to eq 1
+      expect(Participant.pluck(:aasm_state)).to eq %w[main_cast main_cast replacement]
     end
   end
 
@@ -24,7 +25,7 @@ RSpec.describe ParticipantsUpdater do
       create_list(:participant, 2, match_id: match.id, user_id: user.id, aasm_state: 'replacement')
     end
 
-    it 'update_participants_list' do
+    it 'updates status from replacement to main_cast' do
       expect(subject.call(match).length).to eq 2
       expect(Participant.pluck(:aasm_state).include?('main_cast')).to be true
       expect(Participant.pluck(:aasm_state).exclude?('replacement')).to be true
