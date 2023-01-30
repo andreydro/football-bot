@@ -2,14 +2,18 @@
 
 require 'rails_helper'
 
-RSpec.describe Matches::Info do
+RSpec.describe Matches::Info do # rubocop:disable Metrics/BlockLength
   let(:match) { create(:match) }
-  let(:user) { create(:user) }
+  let(:user_for_main_cast) { create(:user, first_name: 'Maincast') }
+  let(:user_for_replacement) { create(:user, first_name: 'Replacement') }
+  let(:user_for_cant_come) { create(:user, first_name: 'CantCome') }
 
   subject { Matches::Info.new(match) }
 
   before do
-    create_list(:participant, 3, match_id: match.id, user_id: user.id)
+    create(:participant, match_id: match.id, user_id: user_for_main_cast.id)
+    create(:participant, match_id: match.id, user_id: user_for_replacement.id)
+    create(:participant, match_id: match.id, user_id: user_for_cant_come.id)
   end
 
   it 'has title' do
@@ -30,5 +34,17 @@ RSpec.describe Matches::Info do
 
   it 'has location url' do
     expect(subject.call.include?('http://google.maps.com')).to eq true
+  end
+
+  it 'has main cast participant' do
+    expect(subject.call.include?('Maincast')).to eq true
+  end
+
+  it 'has replacement participant' do
+    expect(subject.call.include?('Replacement')).to eq true
+  end
+
+  it 'has cant come participant' do
+    expect(subject.call.include?('CantCome')).to eq true
   end
 end
