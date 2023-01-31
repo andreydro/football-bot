@@ -13,7 +13,7 @@ RSpec.describe Matches::Rejoin do
   subject { Matches::Rejoin.new(message) }
 
   before do
-    allow(Helpers).to receive(:send_message).and_return('form created')
+    allow(Helpers).to receive(:send_message).and_return('rejoined')
   end
 
   context 'when main cast is full' do
@@ -22,14 +22,14 @@ RSpec.describe Matches::Rejoin do
     end
 
     it 'should move participant to replacement' do
-      subject.call
+      expect(subject.call).to eq('rejoined')
       expect(participant.reload.aasm_state).to eq('replacement')
     end
   end
 
   context 'when main cast is not full' do
     it 'should move participnat to main cast' do
-      subject.call
+      expect(subject.call).to eq('rejoined')
       expect(participant.reload.aasm_state).to eq('main_cast')
     end
   end
