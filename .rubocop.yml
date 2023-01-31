@@ -6,3 +6,6 @@ Style/Documentation:
 
 Style/RedundantSelf:
   Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Matches::Info do # rubocop:disable Metrics/BlockLength
+RSpec.describe Matches::Info do
   let(:match) { create(:match) }
   let(:user_for_main_cast) { create(:user, first_name: 'Maincast') }
   let(:user_for_replacement) { create(:user, first_name: 'Replacement') }

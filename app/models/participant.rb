@@ -10,7 +10,7 @@ class Participant < ApplicationRecord
 
   scope :ordered, -> { order(:id) }
 
-  aasm do # rubocop:disable Metrics/BlockLength
+  aasm do
     state :main_cast, initial: true
     state :replacement, before_enter: proc {
       send_natification("Вы ці ваш +1 дададзены ў склад запасных на матч #{match.title}")

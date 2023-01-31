@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Matches::Join do # rubocop:disable Metrics/BlockLength
+RSpec.describe Matches::Join do
   let(:match) { create(:match, number_of_players: 2) }
   let(:first_user) { create(:user, telegram_id: 1_111_111) }
 

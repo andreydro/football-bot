@@ -26,5 +26,9 @@ module MessageHelpers
     def from
       From.new(@id, @username, @first_name, @last_name)
     end
+
+    def text
+      data
+    end
   end
 end
