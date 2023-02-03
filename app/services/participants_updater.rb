@@ -19,7 +19,7 @@ class ParticipantsUpdater
 
   def move_main_cast_participants_to_replacement(match)
     how_many_participants_needed = (match.number_of_players - match.participants.main_cast.count).abs
-    main_cast_participants = match.participants.ordered.main_cast.first(how_many_participants_needed)
+    main_cast_participants = match.participants.ordered.main_cast.last(how_many_participants_needed)
     main_cast_participants.each(&:go_to_replacement!)
   end
 end
