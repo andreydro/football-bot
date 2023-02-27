@@ -31,7 +31,7 @@ be:
     number_of_participants: 'Колькасць гульцоў:'
     responsible_for_shirts: 'Адказны за мяч і манішкі:'
     location: 'Лакацыя:'
-    withdrawal_perion: "Нельга выпісацца раней чым за %{hours} гадзіны"
+    withdrawal_perion: "Нельга выпісацца пазней чым за %{hours} гадзіны"
     participants: 'Гульцы:'
     changes: 'Замены:'
     participants_cant_come: 'Не змогуць прыйсці:'
