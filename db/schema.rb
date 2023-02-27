@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_20_214656) do
+ActiveRecord::Schema.define(version: 2023_02_27_120319) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 2022_12_20_214656) do
     t.integer "duration"
     t.datetime "finish"
     t.string "aasm_state"
+    t.integer "withdrawal_perion", default: 0, null: false
   end
 
   create_table "participants", force: :cascade do |t|

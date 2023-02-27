@@ -98,7 +98,8 @@ module Matches
         duration: form.question_four_answer.to_i,
         number_of_players: form.question_five_answer,
         user_id: user.id, have_ball_and_shirtfronts: form.question_six_answer,
-        location: form.question_seven_answer, aasm_state: 'active' }
+        location: form.question_seven_answer, aasm_state: 'active',
+        withdrawal_perion: 3 }
     end
 
     def start_time

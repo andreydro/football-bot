@@ -4,7 +4,8 @@ module Matches
   class CantCome < Base
     def call
       if leaving_time_is_over?
-        Helpers.send_message(message, I18n.t('match.cant_leave_match_before_start'))
+        Helpers.send_message(message,
+                             I18n.t('match.cant_leave_match_before_start', hours: match.withdrawal_perion))
       else
         move_participant_to_wont_come
       end

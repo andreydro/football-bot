@@ -27,6 +27,7 @@ module Matches
       "#{number_of_participants}" \
       "#{responsible_for_shirts}" \
       "#{location}" \
+      "#{withdrawal_period}" \
       "#{main_cast_participants}" \
       "#{replacement_participants}" \
       "#{participants_who_cant_come}"
@@ -58,6 +59,10 @@ module Matches
 
     def location
       "#{I18n.t('match.location')} #{match.location} \n" \
+    end
+
+    def withdrawal_period
+      "#{I18n.t('match.withdrawal_perion', hours: match.withdrawal_perion)} \n" \
       "\n"
     end
 

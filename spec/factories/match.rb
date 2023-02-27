@@ -11,5 +11,6 @@ FactoryBot.define do
     start { Time.current + 2 }
     finish { Time.current + 4 }
     user_id { 1 }
+    withdrawal_perion { 3 }
   end
 end

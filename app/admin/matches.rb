@@ -1,6 +1,6 @@
 ActiveAdmin.register Match do
   permit_params :title, :location, :number_of_players, :have_ball_and_shirtfronts, :start, :duration,
-                :finish, :aasm_state
+                :finish, :aasm_state, :withdrawal_perion
 
   index do
     selectable_column

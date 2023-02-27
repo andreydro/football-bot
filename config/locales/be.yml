@@ -25,12 +25,13 @@ be:
     cant_come: Не змагу прыйсці
     error_joining_match: Aдбылася памылка пры даданні да матчу
     already_participating_in_the_match: Вы ўжо запісаны на гэты матч
-    cant_leave_match_before_start: Нельга адмяніць рэгістрацыю на матч за 3 гадзіны да пачатку
+    cant_leave_match_before_start: "Нельга адмяніць рэгістрацыю на матч за %{hours} гадзіны да пачатку"
     error_changing_status: Здарылася памылка пры пераносе гульца
     status_change_message: Вы або ваш +1 перанесены ў спіс гульцоў якія не прыйдуць на
     number_of_participants: 'Колькасць гульцоў:'
     responsible_for_shirts: 'Адказны за мяч і манішкі:'
     location: 'Лакацыя:'
+    withdrawal_perion: "Нельга выпісацца раней чым за %{hours} гадзіны"
     participants: 'Гульцы:'
     changes: 'Замены:'
     participants_cant_come: 'Не змогуць прыйсці:'

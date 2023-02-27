@@ -47,4 +47,8 @@ RSpec.describe Matches::Info do
   it 'has cant come participant' do
     expect(subject.call.include?('CantCome')).to eq true
   end
+
+  it 'has withdrawal period' do
+    expect(subject.call.include?('3 гадзіны')).to eq true
+  end
 end
