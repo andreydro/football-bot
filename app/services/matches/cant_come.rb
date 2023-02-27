@@ -26,7 +26,7 @@ module Matches
     end
 
     def leaving_time_is_over?
-      Time.current.between?(match.start - 3.hours, match.start)
+      Time.current.between?(match.start - match.withdrawal_perion.hours, match.start)
     end
 
     def markup_with_buttons
