@@ -4,7 +4,10 @@ class MatchesNotifications
   attr_reader :current_time
 
   def initialize
-    @current_time = Time.zone.now + 1.hour
+    # Update it when time zone changes in Poland
+    # + 1.hour in winter
+    # + 2.hours in summer
+    @current_time = Time.zone.now + 2.hours
   end
 
   def send_reminder
