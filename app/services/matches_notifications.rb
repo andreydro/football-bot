@@ -7,7 +7,7 @@ class MatchesNotifications
     # Update it when time zone changes in Poland
     # + 1.hour in winter
     # + 2.hours in summer
-    @current_time = Time.zone.now + 1.hours
+    @current_time = Time.zone.now + 1.hour
   end
 
   def send_reminder
