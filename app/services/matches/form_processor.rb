@@ -6,21 +6,23 @@ module Matches
                    question_five_answered question_six_answered question_seven_answered].freeze
 
     def call
-      case current_question_for_procession
-      when :question_one_answered
-        process_question_one
-      when :question_two_answered
-        process_question_two
-      when :question_three_answered
-        process_question_three
-      when :question_four_answered
-        process_question_four
-      when :question_five_answered
-        process_question_five
-      when :question_six_answered
-        process_question_six
-      when :question_seven_answered
-        process_question_seven
+      ActiveRecotd::Base.transaction do
+        case current_question_for_procession
+        when :question_one_answered
+          process_question_one
+        when :question_two_answered
+          process_question_two
+        when :question_three_answered
+          process_question_three
+        when :question_four_answered
+          process_question_four
+        when :question_five_answered
+          process_question_five
+        when :question_six_answered
+          process_question_six
+        when :question_seven_answered
+          process_question_seven
+        end
       end
     end
 
