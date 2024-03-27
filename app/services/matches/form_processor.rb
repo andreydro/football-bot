@@ -6,7 +6,7 @@ module Matches
                    question_five_answered question_six_answered question_seven_answered].freeze
 
     def call
-      ActiveRecotd::Base.transaction do
+      ActiveRecord::Base.transaction do
         case current_question_for_procession
         when :question_one_answered
           process_question_one
