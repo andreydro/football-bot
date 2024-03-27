@@ -5,8 +5,10 @@ module Matches
     def call
       return if user.blank?
 
-      user.match_forms.create
-      Helpers.send_message(message, I18n.t('chat.start'))
+      MatchForm.transaction do
+        user.match_forms.create
+        Helpers.send_message(message, I18n.t('chat.start'))
+      end
     end
 
     private
